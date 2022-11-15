@@ -1,0 +1,589 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+  <title>Sigil常用正则</title>
+  <style>
+body{margin-left:160px;font-family:"宋体";}
+tr{height:15;}
+	  th{font-family: Constantia, "Lucida Bright", "DejaVu Serif", Georgia, "serif"}
+		td{
+			height:35;
+			white-space:normal !important;
+			padding:1px 1px 0 1px;
+			mso-ignore:padding;
+			mso-number-format:"General";
+			text-align:general;
+			vertical-align:middle;
+			white-space:nowrap;
+			mso-rotate:0;color:black;
+			font-size:11.0pt;
+			font-weight:400;
+			font-style:normal;
+			border:none;
+			mso-protection:locked visible;}
+col{mso-width-source:auto;mso-ruby-visibility:none;}
+.sign{text-align:center;border:0.5pt solid black;}
+.box{border:0.5pt solid black;}
+.boxltr{
+	border:0.5pt solid black;
+	border-bottom:none;}
+.boxlr{
+	border-left:0.5pt solid black;
+	border-right:0.5pt solid black;}
+.boxlrb{
+	border:0.5pt solid black;
+	border-top:none;}
+a{text-decoration: none;}
+.red{color:red}
+</style>
+ </head>
+ <body link="black" vlink="purple" width="100%">
+
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" style="width:auto;border-collapse:collapse;table-layout:fixed;">
+	  <td width="50%" style="text-align:left;color:#a00">测试通过Sigil 1.8版本。</td>
+	 </table>
+
+  <table width="auto" border="0" cellpadding="0" cellspacing="0" style="width:590pt;border-collapse:collapse;table-layout:fixed;">
+   <col width="180" />
+   <col width="300" />
+   <col width="720" />
+   <tr style="height:14pt;">
+    <td></td>
+    <td></td>
+    <td></td>
+   </tr>  
+   <tr>
+    <th class="sign">符号</th>
+    <th class="boxltr">意义</th>
+    <th class="boxltr">说明</th>
+   </tr>
+   <tr>
+    <td class="sign">.</td>
+    <td class="box">任意一个字符</td>
+    <td class="box">最简单的元字符，匹配除了换行符（\n）以外的任意一个字符</td>
+   </tr>
+   <tr>
+    <td class="sign">\</td>
+    <td class="box">转义</td>
+    <td class="box">把元字符改变为普通字符。比如，“\.”就是代表普通的点号，不代表其他字符</td>
+   </tr>
+   <tr>
+    <td class="sign">\s</td>
+    <td class="box">空白字符</td>
+    <td class="box">表示半角空格、制表符、换行符等空白字符的其中一个。<br /><span class="red">在Sigil中使用注意，不能匹配到全角空格（在Sublime Text好像可以匹配到全角空格）未测试</span></td>
+   </tr>
+   <tr>
+    <td class="sign">\S</td>
+    <td class="box">非空白字符</td>
+    <td class="box">匹配除了半角空格、制表符、换行符等空白字符以外的一个字符</td>
+   </tr>
+   <tr>
+    <td class="sign">\t</td>
+    <td class="box">制表符</td>
+    <td class="box">匹配制表符</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="5">\n</td>
+    <td class="box" rowspan="5">换行符</td>
+    <td class="boxltr">表示文章的换行，这是一个不可见符号，在例子中，这个符号在“_”的位置。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">例如：</td>
+   </tr>
+   <tr>
+    <td class="boxlr">aaa\n</td>
+   </tr>
+   <tr>
+    <td class="boxlr">bbb</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">你能够通过“\n”找到换行符，但不能够插入换行符。要在替换结果中换行，需要用“\r”。<br /><span class="red">（Sigil1.8中测试可以通过使用\n插入换行符）</span></td>
+   </tr>
+   <tr>
+    <td class="sign">\r</td>
+    <td class="box">回车符</td>
+    <td class="boxltr">代表一个回车符。这个符号不会在文本中出现，因此不能查找到。但是如果你需要在查找结果中插入一个换行，那么就要用“\r”。<br /><span class="red">注意，插入后在文本中出现的仍然会是“\n”而不是“\r”。（sigil里使用"\n"一样可以插入换行符。）</span></td>
+   </tr>
+   <tr>
+    <td class="sign">\b</td>
+    <td class="box">匹配字词边界</td>
+    <td class="box">匹配一个单词边界，也就是单词和空格之间的位置，不匹配任何字符</td>
+   </tr>
+   <tr>
+    <td class="sign">\d</td>
+    <td class="box">任意一个阿拉伯数字</td>
+    <td class="box">也就是可以代表0~9中的任意一个。</td>
+   </tr>
+   <tr>
+    <td class="sign">\w</td>
+    <td class="box">任意一个字母或数字或下划线</td>
+    <td class="box">也就是 A~Z,a~z,0~9,_ 中任意一个</td>
+   </tr>
+   <tr>
+    <td class="sign">\D</td>
+    <td class="box">任意一个非阿拉伯数字</td>
+    <td class="box">0~9以外的一个字符，同样的，不包括换行符“\n”</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="6">^</td>
+    <td class="box" rowspan="6">与字符串开始的地方匹配，不匹配任何字符</td>
+    <td class="boxltr">即一行的开头。Sigil中不能单独使用，要配合其他字符。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如：</td>
+   </tr>
+   <tr>
+    <td class="boxlr">abc</td>
+   </tr>
+   <tr>
+    <td class="boxlr"> abc</td>
+   </tr>
+   <tr>
+    <td class="boxlr">abcd</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">“^a”表示在行首的“a”，能匹配到第一行和第三行的字母“a”。第二行因为行首是空格，因此匹配不到。</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="6">$</td>
+    <td class="box" rowspan="6">与字符串结束的地方匹配，不匹配任何字符<br/></td>
+    <td class="boxltr">表示任意一行的结尾，不包括换行符。在Sigil中不能单独使用。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如：</td>
+   </tr>
+   <tr>
+    <td class="boxlr">abc</td>
+   </tr>
+   <tr>
+    <td class="boxlr"> abc</td>
+   </tr>
+   <tr>
+    <td class="boxlr">abcd</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">“c$”表示位于行尾的“c”,能够匹配到第一行和第二行的字母“c”。</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="2">|</td>
+    <td class="box" rowspan="2">左右两边表达式之间 &quot;或&quot; 关系，匹配左边或者右边</td>
+    <td class="boxlrb">一个逻辑选择符。“aa|bb”既可以匹配到“aa”也可以匹配到“bb”。</td>
+   </tr>
+   <tr>
+    <td class="box">其他，“gr([a-z]|[A-Z])y”可以匹配到“grdy”或 “grTy”。还可以用到多个选项中，比如“aa|bb|cc”。“1|2|3”相当于“[123]”。</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="6">+</td>
+    <td class="box" rowspan="6">匹配至少出现1次，相当于 {1,}</td>
+    <td class="boxltr">必须配用其他字符使用。添加在一个字符后面，表示匹配1个或更多个该字符。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">相当于“{1,}”。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如，“sa+”表示一个以上的“a”，以下例子都能匹配到。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">sa</td>
+   </tr>
+   <tr>
+    <td class="boxlr">saa</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">saaa</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="5">?</td>
+    <td class="box" rowspan="5">匹配表达式0次或者1次，相当于 {0,1}</td>
+    <td class="boxltr">必须配用其他字符使用。添加在一个字符后面，表示匹配该字符0或1次。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如：</td>
+   </tr>
+   <tr>
+    <td class="boxlr">srtjkls</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&quot;sr?&quot;可以匹配到&quot;srtjkls&quot;中的&quot;sr&quot;以及行尾的&quot;s&quot;，相当于&quot;sr|s&quot;。</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">（在Sublime Text测试可用）</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="5">+?</td>
+    <td class="box" rowspan="5">匹配前一项内容 1 或多次 (最少匹配)</td>
+    <td class="boxltr">必须配用其他字符使用。添加在一个字符后面，表示匹配1个或更多个该字符(最少匹配)。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如：</td>
+   </tr>
+   <tr>
+    <td class="boxlr">ssrTgfkjkdhurst</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&quot;s.+?r&quot;可以匹配到&quot;ssr&quot;,而&quot;s.+r&quot;可以匹配到&quot;ssrTgfkjkdhur&quot;</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">（在Sublime Text测试可用）</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="6">*</td>
+    <td class="box" rowspan="6">表达式出现 0 或多次,即无或更多。</td>
+    <td class="boxltr">必须配用其他字符使用。添加在一个字符后面，表示匹配0个或多个该字符。相当于“{0,}”。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如，“sa*”表示0个以上的“a”，以下例子都能匹配到。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">s</td>
+   </tr>
+   <tr>
+    <td class="boxlr">sa</td>
+   </tr>
+   <tr>
+    <td class="boxlr">saa</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">saaa</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="6">*?</td>
+    <td class="box" rowspan="6">匹配前一项内容 0 或多次 (最少匹配)</td>
+    <td class="boxltr">必须配用其他字符使用。添加在一个字符后面，表示匹配0个或多个该字符(最少匹配)。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如：</td>
+   </tr>
+   <tr>
+    <td class="boxlr">ssrTgfkjkdhurst</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&quot;s.*?r&quot;可以匹配到&quot;ssr&quot;,而&quot;s.*r&quot;可以匹配到&quot;ssrTgfkjkdhur&quot;</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&quot;*?&quot;与&quot;+?&quot;的区别，暂时没想到例子，一般都使用&quot;+?&quot;</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">（在Sublime Text测试可用）</td>
+   </tr>
+   <tr>
+    <td class="sign">{n}</td>
+    <td class="box">表达式重复n次</td>
+    <td class="boxltr">必须配用其他字符使用。添加在一个字符后面，表示匹配该字符的个数范围。</td>
+   </tr>
+   <tr>
+    <td class="sign">{m,n}</td>
+    <td class="box">表达式至少重复m次，最多重复n次</td>
+    <td class="boxlr">比如，“a{3}”表示“aaa”，“a{2,4}”表示“aa”或“aaa”或“aaaa”，“a{1,}”表示一个以上的“a”。</td>
+   </tr>
+   <tr>
+    <td class="sign">{m,}</td>
+    <td class="box">表达式至少重复m次</td>
+    <td class="boxlrb red">注意，“a{,2}”应该表示两个以下的“a”，但是这种写法在Sigil中无效，要写成“a{0,2}”。</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="6">[<span style="mso-spacerun:yes;">&nbsp; </span>]</td>
+    <td class="box" rowspan="6">匹配其中的一个字符</td>
+    <td class="boxltr">注意：“[]”只匹配一个字符。“[]”是不分顺序的，“[abc]”和“[bca]”一样。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如，“[abc]”匹配“a”、“b”或“c”中的一个。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">“[]”中用“-”表示范围，“[a-z]”表示能匹配到“a”到“z”全部26个字母之一。比如，“[0-9]”和“\d”是一样的，但是“\d”速度更快。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">如果大小写敏感，使用&quot;[a-zA-Z]&quot;能匹配到“a”到“z”和“A”到“Z”全部26个字母之一。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">如果要在“[]”中匹配“-”本身，把“-”写在最前面，或者把它转义“\-”。</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">比如，“[-0-9]”就能匹配所有阿拉伯数字和“-”。</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="7">[^]</td>
+    <td class="box" rowspan="7">匹配除了[^]内字符以外的一个其他字符</td>
+    <td class="boxltr red">注意：“[^]”只匹配一个字符。注意，因为“[^]”中符号是无序的，因此如果要排除字符串，要用其他方法。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如：</td>
+   </tr>
+   <tr>
+    <td class="boxlr">abc</td>
+   </tr>
+   <tr>
+    <td class="boxlr">adc</td>
+   </tr>
+   <tr>
+    <td class="boxlr">affc</td>
+   </tr>
+   <tr>
+    <td class="boxlr">“a[^b]c”能匹配到第二行，不能匹配第一行、第三行。&quot;[^abc]&quot; 表示匹配任意不包括 a, b, c的一个字符。</td>
+   </tr>
+   <tr>
+    <td class="boxlrb"></td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="3">()</td>
+    <td class="box" rowspan="3">捕获组</td>
+    <td class="boxltr">“(abc)”表示把“abc”分为一组。分组后可以配合其他元字符使用。一个组称为一个捕获组。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如，“(abc)+”就是一个或以上“abc”组合的意思。</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">捕获组中的内容会被记录并编号，可以通过“\0”、“\1”这种形式来引用。</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="2">(?: )</td>
+    <td class="box" rowspan="2">分组/非捕获组</td>
+    <td class="boxltr">作用上与“()”类似，能把内容分为一组，但&quot;(?: )&quot;仅有分组功能，不记录匹配内容。也就是说，无法通过“\0”“\1”等方式引用。</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">此元字符虽然消耗的资源更少，速度更快，在简单应用中可能体验不到与“()”的区别。</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="6">\0，\1，\2…</td>
+    <td class="box" rowspan="6">反向引用</td>
+    <td class="boxltr">配合&quot;()&quot;使用，引用一个分组。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如，在查找时有分组“(abc)”，那么“\1”就代表“abc”。有分组“a(bc)(de)f”，那么“\0”代表“abcdef”，“\1”代表“bc”，“\2”代表“de”。如此类推。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">嵌套也是一样的，比如“(abc(def))”，“\1”代表“abcdef”，“\2”代表“def”。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">同样地，\0，\1，\2…也能在查找时应用。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如有字符串“abc111abc”，那么表达式“(abc).*\1”就能匹配到所有内容。</td>
+   </tr>
+   <tr>
+    <td class="boxlrb red">注：在其他平台中，可能使用的是$0，$1等表示反向引用。</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="8">(?s)</td>
+    <td class="box" rowspan="8">多行匹配</td>
+    <td class="boxltr">放在表达式的最前端，使得“.”可以匹配到“\n”，从而实现跨行匹配。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如以下例子：</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&lt;div&gt;&lt;/div&gt;</td>
+   </tr>
+   <tr>
+    <td class="boxlr">  &lt;h1&gt;&lt;/h1&gt;</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&lt;div&gt;sdree&lt;/div&gt;</td>
+   </tr>
+   <tr>
+    <td class="boxlr">使用正则表达式“&lt;div&gt;.*&lt;/div&gt;”一次只能匹配到第一行或者第三行。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">而使用“(?s)&lt;div&gt;.*&lt;/div&gt;”则能一次性匹配到第一行到第三行所有内容。</td>
+   </tr>
+   <tr>
+    <td class="boxlr red">注：这是Sigil特有元字符，其他平台有另外的方法实现该功能。<br />注2：此前缀和勾选“DotAll”效果一致。</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="6">(?U)</td>
+    <td class="box" rowspan="6">最少匹配</td>
+    <td class="boxltr">放在表达式的最前端，使得整个正则表达式实现最少匹配。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如以下例子：</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&lt;div&gt;AAA&lt;div&gt;BBB&lt;/div&gt;CCC&lt;/div&gt;</td>
+   </tr>
+   <tr>
+    <td class="boxlr">正则表达式“&lt;div&gt;.*&lt;/div&gt;”会匹配到整个句子。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">而“(?U)&lt;div&gt;.*&lt;/div&gt;”只会匹配到“&lt;div&gt;AAA&lt;div&gt;BBB&lt;/div&gt;”。</td>
+   </tr>
+   <tr>
+    <td class="boxlrb red">注：这是Sigil特有元字符，其他平台有另外的方法实现该功能。<br />注2：此前缀和勾选“Minimal Match”效果一致。</td>
+   </tr>
+   <tr style="height:15.00pt;">
+    <td>常用正则表达式</td>
+    <td></td>
+    <td></td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="11">.*</td>
+    <td class="box" rowspan="11">匹配所有内容（注意：“.”不能匹配到“\n”（换行符））</td>
+    <td class="boxltr">“.”代表一个字符，“*”代表前一个字符0或多个，因此“.*”代表“所有字符”。</td>
+   </tr>
+   <tr>
+    <td class="boxlr">比如：&lt;div&gt;.*&lt;/div&gt;</td>
+   </tr>
+   <tr>
+    <td class="boxlr">表示&lt;div&gt;&lt;/div&gt;标签内的所有内容，可以依次匹配到下列各项</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&lt;div&gt;AAACCCC&lt;/div&gt;</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&lt;div&gt;&lt;/div&gt;</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&lt;div&gt;！！！！AAAAACCCC啊啊啊啊&lt;/div&gt;</td>
+   </tr>
+   <tr>
+    <td class="boxlr">但不能跨行，这样是匹配不到的下面的例子的：</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&lt;div&gt;</td>
+   </tr>
+   <tr>
+    <td class="boxlr">AAAAAA</td>
+   </tr>
+   <tr>
+    <td class="boxlr">&lt;/div&gt;</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">如果要匹配到跨行，需要使用“(?s)”。写成(?s)&lt;div&gt;.*&lt;/div&gt;</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="2">^[ \t ]*$\n</td>
+    <td class="box" rowspan="2">匹配空白行</td>
+    <td class="boxlrb">匹配空白行的典型写法。可以匹配无内容的行，只有空格的行，只有制表符的行或者空格和制表符混合排列的行。</td>
+   </tr>
+   <tr>
+    <td class="box">[]中包括的分别是半角空格“ ”，制表符“\t”和全角空格“　”。也可以根据需要添加更多的字符。</td>
+   </tr>
+   <tr>
+    <td class="sign">[ \t ]+$</td>
+    <td class="box">行尾空白字符</td>
+    <td class="box">匹配出现在行尾的空白字符，比如空格。思路和【匹配空白行】一致，使用“$”把搜查范围限定在结尾，使用了符号“+”确保最少有一个空白字符，否则会查找失败。</td>
+   </tr>
+   <tr>
+    <td class="sign">查找&quot;。+&quot;</td>
+    <td class="box" rowspan="2">压缩重复符号</td>
+    <td class="box" rowspan="2">很容易理解，把一个以上的“。”，换成一个“。”，从而达到压缩重复符号的目的。可以灵活改变，压缩各种重复的字符。配合查找【空白行】，也能实现压缩空白行。</td>
+   </tr>
+   <tr>
+    <td class="sign">替换&quot;。&quot;</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="2">[A-Za-z]</td>
+    <td class="box" rowspan="2">匹配任意一个英文字母</td>
+    <td class="boxltr">也可以写成[a-zA-Z]，a-z和A-Z顺序无关；[a-zA-Z0-9]则表示：匹配英文和数字当中的任意一个字符</td>
+   </tr>
+   <tr>
+    <td class="boxlrb">[a-z]表示：匹配从 a 到 z 之间的任意一个字符</td>
+   </tr>
+   <tr>
+    <td class="sign">[^A-Za-z]</td>
+    <td class="box">匹配任意一个非英文字母的字符</td>
+    <td class="box">[^A-Za-z0-9]则表示：匹配任意一个非英文字母和数字的字符</td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="3">[\u4E00-\u9FA5]</td>
+    <td class="box" rowspan="3">匹配任意一个汉字</td>
+    <td class="boxltr red">注意：[\u4E00-\u9FA5]这种匹配汉字写法不算全面，不包含一些生僻汉字。</td>
+   </tr>
+   <tr>
+    <td class="boxlr red">例外：在SublimeText的正则表达式使用中，[\u4E00-\u9FA5]可以匹配到英文字母、数字以及部分英文标点符号，需要写成[\x{4e00}-\x{9fa5}]，才能只匹配到汉字。Sigil需要写成[\x{4e00}-\x{9fa5}]</td>
+   </tr>
+   <tr>
+    <td class="boxlr">详情参照<a style="color:blue" href="https://blog.csdn.net/weixin_30780649/article/details/98327208" target="_blank">用正则表达式匹配汉字，完整总结</a></td>
+   </tr>
+   <tr>
+    <td class="sign" rowspan="3">[\x{ff41}-\x{ff5a}\x{ff21}-\x{ff3a}]</td>
+    <td class="box" rowspan="3">匹配任意一个全角英文字母</td>
+    <td class="boxltr">如果要匹配全角英文字母和全角数字，写成[\x{ff41}-\x{ff5a}\x{ff21}-\x{ff3a}０-９]</td>
+   </tr>
+   <tr>
+    <td class="boxlr">详情unicode编码参照<a style="color:blue" href="https://blog.csdn.net/mx472756841/article/details/53379762" target="_blank">全角英语字母,全角阿拉伯数字,汉语数字对应的unicode编码</a></td>
+   </tr>
+   <tr>
+    <td class="boxlrb">（在Sublime Text测试可用）</td>
+   </tr>
+   <tr height="12pt"></tr>
+   <tr>
+    <td>零宽断言</td>
+    <td></td>
+    <td></td>
+   </tr>
+   <tr>
+    <td class="sign">(?= )</td>
+    <td class="box">正向肯定预查，【不(捕获)内容】</td>
+    <td class="box">例： d(?=ing)：　wing ✘、win ✘、(d)ing ✔<br/>例： [^\s]+(?=er)：　(sab)er ✔、(teach)er ✔、er ✘</td>
+   </tr>
+   <tr>
+    <td class="sign">(?&lt;= )</td>
+    <td class="box">反向肯定预查，【不(捕获)内容】</td>
+    <td class="box">例： (?&lt;=sa)ber：　lancer ✘、teacher ✘、sa(ber) ✔<br/>例： (?&lt;=第).章：　第(一章) ✔、二章 ✘、弟三章 ✘</td>
+   </tr>
+   <tr>
+    <td class="sign">(?! )</td>
+    <td class="box">正向否定预查，【不(捕获)内容】</td>
+    <td class="box">例： d(?!=ing)：　(d)og ✔、ding ✘、(d)oor ✔<br/>例： sa(?!=ber)：　saber ✘、(sa)ve ✔、(sa) ✔</td>
+   </tr>
+   <tr>
+    <td class="sign">?&lt;! )</td>
+    <td class="box">反向否定预查，【不(捕获)内容】</td>
+    <td class="box">例： (?&lt;!sab)er：　berserk(er) ✔、teach(er) ✔、saber ✘<br/>例： (?&lt;!一)章：　五章 ✔、一章 ✘、三章 ✔</td>
+   </tr>
+   <tr>
+    <td class="sign">(?s)</td>
+    <td class="box">贪婪模式，放在表达式的最前端<br />【整个正则表达式】 以尽可能多的匹配</td>
+    <td class="box">. 能匹配任何字符，包括换行符， .* .+可实现跨行匹配：<br/>例： (?s)哈{2,10}：　哈哈哈 ✔、哈 ✘、(哈哈哈哈哈哈哈哈哈哈)哈哈 ✔</td>
+   </tr>
+   <tr>
+    <td class="sign">(?U)</td>
+    <td class="box">懒惰模式，放在表达式的最前端<br />【整个正则表达式】 皆匹配最短的内容</td>
+    <td class="box">例： (?U)呜{3,5}：　呜 ✘、(呜呜呜)呜呜呜 ✔、(呜呜呜)呜呜呜呜呜呜呜 ✔</td>
+   </tr>
+   <tr>
+    <td class="sign">*?</td>
+    <td class="box" rowspan="4">皆为懒惰限定符，匹配尽可能少的字符</td>
+    <td class="box" rowspan="4">例： ([0-5].+[6-9])：　2iamyour7father8 ✔<br/>　 　([0-5].+?[6-9])：　2iamyour7 ✔ ～以最短的形式去获取中间的字串。</td>
+   </tr>
+   <tr>
+    <td class="sign">+?</td>
+   </tr>
+   <tr>
+    <td class="sign">??</td>
+   </tr>
+   <tr>
+    <td class="sign">{n,m}?</td>
+   </tr>
+   <tr>
+    <td class="sign">xxx(?=ing)</td>
+    <td class="box">匹配以ing结尾的xxx（不包括ing）</td>
+    <td class="box"></td>
+   </tr>
+   <tr>
+    <td class="sign">xxx(?!ing)</td>
+    <td class="box">匹配不是以ing结尾的xxx</td>
+    <td class="box"></td>
+   </tr>
+   <tr>
+    <td class="sign">(?&lt;=ing)xxx</td>
+    <td class="box">匹配以ing开头的xxx（不包括ing）</td>
+    <td class="box"></td>
+   </tr>
+   <tr>
+    <td class="sign">(?&lt;!ing)xxx</td>
+    <td class="box">匹配不是以ing开头的xxx</td>
+    <td class="box"></td>
+   </tr>
+   <tr>
+    <td class="sign"></td>
+    <td class="box">(?&lt;=\s)\d+(?=\s)</td>
+    <td class="box">匹配两边是空白符的数字(不包括空白符)</td>
+   </tr>
+	<tr>
+    <td>引用：<br/><a href="http://www.regexlab.com/zh/regref.htm" target="_blnk">http://www.regexlab.com/zh/regref.htm</a><br/><a href="http://www.360doc.com/content/14/1205/19/9152906_430669102.shtml" target="_blnk">http://www.360doc.com/content/14/1205/19/9152906_430669102.shtml</a><br/><a href="https://tieba.baidu.com/p/3493107610" target="_blnk">https://tieba.baidu.com/p/3493107610</a></td>
+   </tr>
+  </table>
+ </body>
+</html>
