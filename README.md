@@ -1,2 +1,0 @@
-# stasic
-# Regular
