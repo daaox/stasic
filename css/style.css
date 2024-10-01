@@ -1,3 +1,9 @@
+html,body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: #FFF;
     color: #444;
@@ -10,13 +16,11 @@ a {
     text-decoration: none;
 }
 
-a:hover,
-a:active {
+a:hover,a:active {
     color: #444;
 }
 
-pre,
-code {
+pre,code {
     background: #F3F3F3;
     font-family: Menlo, Monaco, Consolas, "Lucida Console", "Courier New", monospace;
     font-size: .92857em;
@@ -61,12 +65,7 @@ table th {
     background: #f3f3f3;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1,h2,h3,h4,h5,h6 {
     font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Microsoft Yahei", sans-serif;
 }
 
