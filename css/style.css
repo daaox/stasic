@@ -55,8 +55,7 @@ table {
     width: 100%;
 }
 
-table th,
-table td {
+table th,table td {
     padding: 5px 10px;
     border: 1px solid #eee;
 }
@@ -87,15 +86,12 @@ textarea {
     resize: vertical;
 }
 
-.post-meta a,
-.post-content a,
-.widget a,
+.post-meta a,.post-content a,.widget a,
 .comment-content a {
     border-bottom: 1px solid #EEE;
 }
 
-.post-meta a:hover,
-.post-content a:hover,
+.post-meta a:hover,.post-content a:hover,
 .widget a:hover,
 .comment-content a:hover {
     border-bottom-color: transparent;
