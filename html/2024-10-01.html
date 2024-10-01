@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Windows下提高大内存使用效率 - Daaox</title>
+
+  <link rel="stylesheet" href="https://daaox.github.io/stasic/css/normalize.css">
+  <link rel="stylesheet" href="https://daaox.github.io/stasic/css/grid.css">
+  <link rel="stylesheet" href="https://daaox.github.io/stasic/css/style.css">
+<style type="text/css">
+pre {line-height:1.5em;}
+</style>
+</head>
+
+<body>
+<!--[if lt IE 8]>
+    <div class="browsehappy" role="dialog">当前网页 <strong>不支持</strong> 你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.</div>
+<![endif]-->
+
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="row">
+            <div class="site-name col-mb-12 col-9">
+                <a id="logo" href=" ">Daaox</a>
+                <p class="description">一些笔记 ...</p>
+            </div>
+            <div class="col-mb-12">
+                <nav id="nav-menu" class="clearfix" role="navigation">
+                    <a href="https://daaox.github.io/stasic/index.html">首页</a>
+                    <a href="https://daaox.github.io/stasic/share.html" title="分享">分享</a>
+                    <a href="https://daaox.github.io/stasic/other.html" title="其它">其它</a>
+                    <a href="https://daaox.github.io/stasic/about.html" title="关于">关于</a>
+                </nav>
+            </div>
+        </div><!-- end .row -->
+    </div>
+</header><!-- end #header -->
+
+<div id="body">
+    <div class="container">
+        <div class="row">
+
+<div class="col-mb-12 col-12" id="main" role="main"><!-- "col-12" grid.css调整宽度 -->
+
+  <article class="post">
+
+    <h1>Windows下提高大内存使用效率</h1>
+    <ul class="post-meta">
+      <li>时间: <time datetime="2024-10-01" itemprop="datePublished">2024-10-01</time></li>
+    </ul>
+<p> 建议16G及以上</p>
+<p><br/></p>
+<p>注册表定位至</p>
+<pre>HKEY_LOCAL_MACHINE/\SYSTEM/\CurrentControlSet/\Control/\Session Manager/\Memory Management</pre>
+<p>找到下面这三项：</p>
+<pre>
+**DisablePagingExecutive**
+**LargeSystemCache**
+**SecondLevelDataCache**
+</pre>
+<p><br/></p>
+<pre>**DisablePagingExecutive**</pre>
+<p>数值数据改成“1”是禁用页面文件，不再使用低速的硬盘进行数据交换，而全部在内存中完成，这项酌情使用，毕竟某些程序/游戏跑起来，32GB内存都是塞牙缝的；</p>
+<p><br/></p>
+<pre>**LargeSystemCache**</pre>
+<p>数值数据修改为“1”，启动大容量系统缓存，在内存中开辟出一些空间用于磁盘文件的预读取操作，修改这项，能有效提高系统的启动速度，但占用的内存空间也是蹭蹭的涨，实测Win10用16GB在可接受范围内，启动速度也增加了不少；</p>
+<p><br/></p>
+<pre>**SecondLevelDataCache**</pre>
+<p>涉及到配合处理器二级缓存增加数据读取命中率，按照物理内存大小的1/8设置，4GB内存就把数值数据改成512、8GB内存就换成1024，以此类推。</p>
+<p><br/></p>
+<p><br/></p>
+<p>windows 10还可以修改<code>system.ini</code>配置文件</p>
+<p><code>win + r</code>输入<code>system.ini</code></p>
+<p>在<code>[386Enh]</code>项的最后一行添加内容</p>
+<pre>ConservativeSwapfileUsage=1</pre>
+<p>这个设置的意思是，让系统在调用全部物理内存之后再使用虚拟内存进行数据交换；</p>
+<p>在最下方添加一个<code>[vcache]</code>项（在Win7和Win8/8.1下默认存在）并填写两行命令：</p>
+<pre>MinFileCache=4096
+MaxFileCache=8192</pre>
+<p>通过设置最小4MB、最大8MB的内存空间用于缓存硬盘小文件读写，这样可以改善机械硬盘在读写小文件的性能。</p>
+<p><br/></p>
+<p><br/></p>
+<p>参考来源：</p>
+<p><a href="http://www.cfan.com.cn/2018/0709/131122.shtml" target="_blnk">cfan - 加内存感觉系统没变化？ 改这几项再说话！</a></p>
+<p><a href="http://www.cfan.com.cn/2017/1221/129990.shtml" target="_blnk">要机械硬盘再快点？试试这么做吧！</a></p>
+  </article>
+
+</div><!-- end #main-->
+
+        </div><!-- end .row -->
+    </div>
+</div><!-- end #body -->
+<footer id="footer" role="contentinfo">
+    &copy; 2024 <a href="https://daaox.github.io/stasic/index.html">Doox</a>.<br/>页面风格 <a href="https://www.typecho.org" target="_blnk">Typecho</a> .
+</footer><!-- end #footer -->
+
+</body>
+</html>
